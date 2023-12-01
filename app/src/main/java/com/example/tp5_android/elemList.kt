@@ -1,6 +1,6 @@
 package com.example.tp5_android
 
-data class (
+data class elemList (
     val clouds: CloudsX,
     val dt: Int,
     val dt_txt: String,
