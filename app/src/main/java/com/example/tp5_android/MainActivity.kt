@@ -20,6 +20,7 @@ import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
 
+    var selectedCityId:Int = 2464461 // Tunisia by default
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         citySpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cities)
 
-        val apiKey = RetrofitHelper.getApiKey()
-        val weatherService = RetrofitHelper.getWeatherService1()
 
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -46,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val buttonGoToForecastActivity = findViewById<Button>(R.id.button)
         buttonGoToForecastActivity.setOnClickListener {
             val intent = Intent(this, WeatherForecastActivity::class.java)
+            intent.putExtra("cityId", selectedCityId)
             startActivity(intent)
         }
     }
@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         val weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         weatherViewModel.getWeatherData(cityName,this).observe(this) {wheatherResponse ->
             displayWeatherData(wheatherResponse)
+            selectedCityId = wheatherResponse.id
             Toast.makeText(this, "Weather data fetched successfully", Toast.LENGTH_SHORT).show()
         }
     }
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         // Update UI with weather data
         // Example: Update TextViews with weather details
         weatherResponse?.let {
-            findViewById<TextView>(R.id.tempText).text = "${convertKelvinToCelsius(it.main.temp).roundToInt()} \u2103" // Temperature in Celsius
+            findViewById<TextView>(R.id.tempText).text = "${convertKelvinToCelsius(it.main.temp)} \u2103" // Temperature in Celsius
             findViewById<TextView>(R.id.overCastText).text = it.weather[0].description
             findViewById<TextView>(R.id.humidityTextView2).text = "${it.main.humidity}%"
             findViewById<TextView>(R.id.pressureTextView).text = "${it.main.pressure} hPa"
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun convertKelvinToCelsius(kelvin: Double): Double {
-        return kelvin - 273.15
+    private fun convertKelvinToCelsius(kelvin: Double): Int {
+        return (kelvin - 273.15).roundToInt()
     }
 }

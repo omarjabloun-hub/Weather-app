@@ -36,4 +36,29 @@ class WeatherRepository {
 
         return weatherData
     }
+
+    fun getForecastData(cityId: Int,context: Context ): LiveData<ForecastResponse> {
+        val forecastData = MutableLiveData<ForecastResponse>()
+
+        weatherService.getForecast(cityId, RetrofitHelper.getApiKey())
+            .enqueue(object : Callback<ForecastResponse> {
+                override fun onResponse(
+                    call: Call<ForecastResponse>,
+                    response: Response<ForecastResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        forecastData.value = response.body()
+                    } else{
+                        Toast.makeText(context, "Network request failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ForecastResponse>, t: Throwable) {
+                    Toast.makeText(context, "Network request failed", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+        return forecastData
+    }
+
 }

@@ -10,4 +10,5 @@ class WeatherViewModel : ViewModel() {
     fun getWeatherData(cityName: String,context:Context): LiveData<WeatherResponse> {
         return weatherRepository.getWeatherData(cityName,context)
     }
+
 }
