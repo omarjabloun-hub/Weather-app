@@ -9,5 +9,5 @@ interface WeatherAPI {
     fun getWeather(@Query("q") cityName: String, @Query("APPID") apiKey: String): Call<WeatherResponse>
 
     @GET("forecast")
-    fun getForecast(@Query("q") cityName: String, @Query("APPID") apiKey: String): Call<ForecastResponse>
+    fun getForecast(@Query("id") cityId: Int, @Query("APPID") apiKey: String): Call<ForecastResponse>
 }

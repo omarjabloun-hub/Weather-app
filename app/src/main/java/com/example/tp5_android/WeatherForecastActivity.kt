@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.roundToInt
 
 class WeatherForecastActivity : AppCompatActivity() {
     private lateinit var forecastViewModel: ForecastViewModel
@@ -16,42 +17,33 @@ class WeatherForecastActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather_forecast)
-
+        val intent = intent
+        val cityId = intent.getIntExtra("cityId", 2464461)
         val buttonGoToMainActivity = findViewById<Button>(R.id.buttonGoToMain)
         buttonGoToMainActivity.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        forecastRecyclerView = findViewById(R.id.recyclerViewForecast)
+        forecastRecyclerView.layoutManager = LinearLayoutManager(this)
+        forecastViewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
+        fetchForecastData(cityId)
     }
 
-    private fun createDummyForecastList(): List<ForecastItem> {
-        // Replace this with your actual list of forecast items from API response
-        // This is a sample data creation; you should parse your JSON response here
-        val forecastList = mutableListOf<ForecastItem>()
-        // Add sample data for demonstration
-        // Add as many ForecastItem objects as needed
-        forecastList.add(
-            ForecastItem(
-                "2023-12-01 18:00:00",
-                "268.77",
-                "light snow",
-                97.0,
-                15,
-                45.0,
-            )
-        )
-        forecastList.add(
-            ForecastItem(
-                "2023-12-01 21:00:00",
-                "267.56",
-                "light snow",
-                98.0,
-                16,
-                46.0,
-            )
-        )
-        // Add more items as needed...
+    private fun fetchForecastData(cityId: Int) {
+        forecastViewModel.getForecastData(cityId,this).observe(this) { forecastResponse ->
+            // Handle the received forecastResponse here, update RecyclerView or perform actions as needed
+            if (forecastResponse != null) {
+                // Assuming you have a RecyclerView and an adapter set up
+                 // Replace with your data structure from ForecastResponse
+                val forecastAdapter =
+                    ForecastAdapter(this, forecastResponse) // Create or update your adapter
 
-        return forecastList
+                // Update your RecyclerView adapter with the new data
+                forecastRecyclerView.adapter = forecastAdapter
+            }
+        }
     }
+
+
 }
