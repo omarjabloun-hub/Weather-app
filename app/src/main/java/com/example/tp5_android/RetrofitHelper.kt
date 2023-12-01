@@ -14,7 +14,7 @@ object RetrofitHelper {
 
     val weatherService: WeatherAPI by lazy { retrofit.create(WeatherAPI::class.java) }
 
-    fun getWeatherService(): WeatherAPI {
+    fun getWeatherService1(): WeatherAPI {
         return weatherService
     }
 
