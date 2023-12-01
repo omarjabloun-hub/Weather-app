@@ -1,10 +1,12 @@
 package com.example.tp5_android
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -39,7 +41,11 @@ class MainActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
-
+        val buttonGoToForecastActivity = findViewById<Button>(R.id.button)
+        buttonGoToForecastActivity.setOnClickListener {
+            val intent = Intent(this, WeatherForecastActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun fetchWeatherData(cityName: String) {
