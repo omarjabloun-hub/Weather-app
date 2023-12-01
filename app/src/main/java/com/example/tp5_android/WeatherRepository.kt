@@ -1,6 +1,7 @@
 package com.example.tp5_android
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +23,7 @@ class WeatherRepository {
                 ) {
                     if (response.isSuccessful) {
                         weatherData.value = response.body()
+                        Log.d("response: ",response.body().toString())
                     } else{
                         Toast.makeText(context, "Network request failed", Toast.LENGTH_SHORT).show()
                     }

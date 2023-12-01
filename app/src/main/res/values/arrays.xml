@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="city_array">
-        <item>Tunisia</item>
+        <item>Tunis</item>
         <item>London</item>
         <item>Paris</item>
     </string-array>

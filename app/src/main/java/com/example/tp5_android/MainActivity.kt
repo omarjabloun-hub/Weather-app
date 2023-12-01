@@ -3,6 +3,7 @@ package com.example.tp5_android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedCity = cities[position]
+                Log.d("selectedCity: ",selectedCity)
                 fetchWeatherData(selectedCity)
             }
 
