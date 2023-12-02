@@ -20,8 +20,8 @@
         android:id="@+id/imageViewWeatherIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/good"
-        android:layout_marginBottom="4dp"/>
+        android:src="@drawable/ic_clear_sky"
+        />
 
     <!-- Weather description (e.g., cloudy, sunny, etc.) -->
     <TextView
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="4dp"/>
+        />
 
     <!-- Temperature -->
     <TextView

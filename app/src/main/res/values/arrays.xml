@@ -4,5 +4,9 @@
         <item>Tunis</item>
         <item>London</item>
         <item>Paris</item>
+        <item>California</item>
+        <item>Sydney</item>
+        <item>Moscow</item>
+        <item>Dubai</item>
     </string-array>
 </resources>

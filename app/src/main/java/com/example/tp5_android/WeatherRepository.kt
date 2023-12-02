@@ -21,15 +21,18 @@ class WeatherRepository {
                     call: Call<WeatherResponse>,
                     response: Response<WeatherResponse>
                 ) {
+                    Log.d("response:",response.toString())
                     if (response.isSuccessful) {
                         weatherData.value = response.body()
-                        Log.d("response: ",response.body().toString())
+                        Log.d("response succ: ",response.body().toString())
                     } else{
+                        Log.e("response error: ", response.message())
                         Toast.makeText(context, "Network request failed", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+                    Log.e("network failure: ", t.message, t)
                     Toast.makeText(context, "Network request failed", Toast.LENGTH_SHORT).show()
                 }
             })
